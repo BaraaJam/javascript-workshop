@@ -71,8 +71,18 @@ if (searchInput) {
 // Category Filters
 categoryFilters.forEach(filter => {
     filter.addEventListener('change', () => {
-        // TODO: Collect active categories
-        // TODO: Filter products and re-render
+        const activeCategories = Array.from(categoryFilters)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
+
+        if (activeCategories.includes('all') || activeCategories.length === 0) {
+            renderProducts(products);
+        } else {
+            const filteredProducts = products.filter(product =>
+                activeCategories.includes(product.category)
+            );
+            renderProducts(filteredProducts);
+        }
     });
 });
 
