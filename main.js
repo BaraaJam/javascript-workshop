@@ -64,7 +64,12 @@ function updateCartCount() {
 // Search
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
-        // TODO: Filter products by name or description
+        const searchTerm = e.target.value.toLowerCase().trim();
+        const filteredProducts = products.filter(product =>
+            product.name.toLowerCase().includes(searchTerm) ||
+            product.category.toLowerCase().includes(searchTerm)||
+            product.description?.toLowerCase().includes(searchTerm));
+        renderProducts(filteredProducts);
     });
 }
 
